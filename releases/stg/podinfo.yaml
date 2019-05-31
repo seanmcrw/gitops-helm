@@ -14,7 +14,7 @@ spec:
     path: charts/podinfo
     ref: master
   values:
-    image: seanmcguigan/podinfo:uat-0.0.1
+    image: seanmcguigan/podinfo:stg-smiqqeop
     replicaCount: 2
     hpa:
       enabled: true
