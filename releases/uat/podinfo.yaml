@@ -1,0 +1,23 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: podinfo-rc
+  namespace: uat
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.chart-image: glob:uat-*
+spec:
+  releaseName: podinfo-rc
+  chart:
+    git: git@github.com:seanmcrw/gitops-helm
+    path: charts/podinfo
+    ref: master
+  values:
+    image: seanmcguigan/podinfo:uat-4ifofgi4
+    replicaCount: 2
+    hpa:
+      enabled: true
+      maxReplicas: 10
+      cpu: 50
+      memory: 256Mi
