@@ -1,0 +1,20 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: podinfo-bugfix
+  namespace: bugfix
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.chart-image: glob:bugfix-*
+spec:
+  releaseName: podinfo-bugfix
+  chart:
+    git: git@github.com:seanmcrw/gitops-helm
+    path: charts/podinfo
+    ref: master
+  values:
+    image: seanmcguigan/podinfo:bugfix-w3fb7wb3
+    replicaCount: 1
+    hpa:
+      enabled: false
