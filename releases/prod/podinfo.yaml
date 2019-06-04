@@ -15,4 +15,4 @@ spec:
     ref: master
   values:
     image: seanmcguigan/podinfo:prod-0.0.1
-    replicaCount: 0
+    replicaCount: 2
