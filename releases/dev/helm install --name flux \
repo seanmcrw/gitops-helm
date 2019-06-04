@@ -1,0 +1,73 @@
+helm install --name flux \
+--set rbac.create=true \
+--set helmOperator.create=true \
+--set git.url=git@github.com:seanmcrw/gitops-helm.git \
+--set git.user="Barry Blue Jeans" \
+--namespace flux \
+weaveworks/flux
+
+
+./ci-mock.sh -r seanmcguigan/podinfo -b dev
+
+
+--
+NAME:   flux
+LAST DEPLOYED: Thu May 30 16:19:38 2019
+NAMESPACE: flux
+STATUS: DEPLOYED
+
+RESOURCES:
+==> v1/ConfigMap
+NAME              DATA  AGE
+flux-kube-config  1     0s
+
+==> v1/Deployment
+NAME                READY  UP-TO-DATE  AVAILABLE  AGE
+flux                0/1    1           0          0s
+flux-helm-operator  0/1    1           0          0s
+flux-memcached      0/1    1           0          0s
+
+==> v1/Pod(related)
+NAME                                 READY  STATUS             RESTARTS  AGE
+flux-56d79b9fd-8sxbk                 0/1    ContainerCreating  0         0s
+flux-helm-operator-78bdf45fbd-glc8j  0/1    ContainerCreating  0         0s
+flux-memcached-7c9c56b487-cvfrp      0/1    ContainerCreating  0         0s
+
+==> v1/Secret
+NAME             TYPE    DATA  AGE
+flux-git-deploy  Opaque  0     0s
+
+==> v1/Service
+NAME            TYPE       CLUSTER-IP     EXTERNAL-IP  PORT(S)    AGE
+flux            ClusterIP  10.104.69.164  <none>       3030/TCP   0s
+flux-memcached  ClusterIP  10.97.255.117  <none>       11211/TCP  0s
+
+==> v1/ServiceAccount
+NAME  SECRETS  AGE
+flux  1        0s
+
+==> v1beta1/ClusterRole
+NAME  AGE
+flux  0s
+
+==> v1beta1/ClusterRoleBinding
+NAME  AGE
+flux  0s
+
+==> v1beta1/CustomResourceDefinition
+NAME                                                 AGE
+fluxhelmreleases.helm.integrations.flux.weave.works  0s
+helmreleases.flux.weave.works                        0s
+
+
+NOTES:
+Get the Git deploy key by either (a) running
+
+  kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
+
+or by (b) installing fluxctl through
+https://github.com/weaveworks/flux/blob/master/site/fluxctl.md#installing-fluxctl
+and running:
+
+  fluxctl identity
+
