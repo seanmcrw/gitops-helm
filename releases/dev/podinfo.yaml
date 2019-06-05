@@ -14,7 +14,7 @@ spec:
     path: charts/podinfo
     ref: master
   values:
-    image: seanmcguigan/podinfo:dev-rbh8myjb
+    image: seanmcguigan/podinfo:dev-wdgyicyn
     replicaCount: 1
     hpa:
       enabled: false
