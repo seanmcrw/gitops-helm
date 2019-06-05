@@ -1,0 +1,20 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: podinfo-testing
+  namespace: testing
+  annotations:
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.chart-image: glob:testing-*
+spec:
+  releaseName: podinfo-testing
+  chart:
+    git: git@github.com:seanmcrw/gitops-helm
+    path: charts/podinfo
+    ref: master
+  values:
+          image: seanmcguigan/podinfo:hotfix-w3fb7wb3
+    replicaCount: 1
+    hpa:
+      enabled: false
