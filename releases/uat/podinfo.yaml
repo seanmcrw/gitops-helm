@@ -2,13 +2,13 @@
 apiVersion: flux.weave.works/v1beta1
 kind: HelmRelease
 metadata:
-  name: podinfo-bugfix
-  namespace: bugfix
+  name: podinfo-uat
+  namespace: uat
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.chart-image: glob:bugfix-*
+    flux.weave.works/tag.chart-image: glob:uat-*
 spec:
-  releaseName: podinfo-bugfix
+  releaseName: podinfo-uat
   chart:
     git: git@github.com:seanmcrw/gitops-helm
     path: charts/podinfo
